@@ -7,7 +7,7 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
 set(VECTORIZATION_LIBS_DIR libs)
-set(VECTORIZATION_DEPS matrix)
+set(VECTORIZATION_DEPS matrix benchmark)
 
 foreach(LIBRARY ${VECTORIZATION_DEPS})
     add_subdirectory("${VECTORIZATION_LIBS_DIR}/${LIBRARY}")
