@@ -9,6 +9,7 @@ class Matrix {
 public:
     Matrix(int rows, int columns) : rows(rows), columns(columns) {}
 
+    virtual std::unique_ptr<Matrix> add(std::unique_ptr<Matrix> matrix) = 0;
     virtual std::unique_ptr<Matrix> multiply(Matrix& matrix) = 0;
     virtual void print() = 0;
 

@@ -6,7 +6,7 @@ set(LIBRARY_NAME matrix)
 set(LIBRARY_HEADERS_DIR include/${LIBRARY_NAME})
 set(LIBRARY_HEADERS
         ${LIBRARY_HEADERS_DIR}/matrix.hpp
-        ${LIBRARY_HEADERS_DIR}/standard_matrix.hpp)
+        ${LIBRARY_HEADERS_DIR}/standard_matrix.hpp include/matrix/parent_matrix.hpp)
 
 set(LIBRARY_SOURCE_DIR src)
 set(LIBRARY_SOURCE

@@ -9,5 +9,6 @@ public:
 
 public:
     std::unique_ptr<Matrix> multiply(Matrix& matrix) override;
+    std::unique_ptr<Matrix> add(std::unique_ptr<Matrix> matrix) override;
     void print() override;
 };

@@ -40,3 +40,12 @@ std::unique_ptr<Matrix> StandardMatrix::multiply(Matrix& matrix) {
 
     return result;
 }
+std::unique_ptr<Matrix> StandardMatrix::add(std::unique_ptr<Matrix> matrix) {
+    auto result = std::make_unique<StandardMatrix>(rows, columns);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            result->space[i][j] = space[i][j] + matrix->getSpace()[i][j];
+        }
+    }
+    return result;
+}
