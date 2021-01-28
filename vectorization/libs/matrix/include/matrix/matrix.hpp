@@ -7,27 +7,27 @@
 
 class Matrix {
 public:
-    Matrix(int rows, int columns);
-    ~Matrix();
+    Matrix(int rows, int columns) : rows(rows), columns(columns) {}
 
-public:
-    std::unique_ptr<Matrix> multiply(Matrix& matrix);
-    void print();
+    virtual std::unique_ptr<Matrix> multiply(Matrix& matrix) = 0;
+    virtual void print() = 0;
 
-private:
+protected:
     void fill();
     void allocate();
     double getRandomDouble(int min, int max);
 
 public:
-    double getRows() const;
+    int getRows() const;
     void setRows(double rows);
 
-    double getColumns() const;
+    int getColumns() const;
     void setColumns(double columns);
 
-private:
+    double** getSpace() const;
+
+protected:
     double **space;
-    int rows;
     int columns;
+    int rows;
 };
