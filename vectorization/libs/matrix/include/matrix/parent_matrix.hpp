@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <iostream>
 
 #include <matrix/matrix.hpp>
 
@@ -31,8 +32,11 @@ public:
                 parentMatrix.defs.childMatrixColumns
         });
 
+#pragma clang loop vectorize(enable) interleave(enable)
         for(int i = 0; i < defs.parentMatrixRows; ++i)
+#pragma clang loop vectorize(enable) interleave(enable)
             for(int j = 0; j < parentMatrix.defs.parentMatrixColumns; ++j)
+#pragma clang loop vectorize(enable) interleave(enable)
                 for(int k = 0; k < defs.parentMatrixColumns; ++k) {
                     result->store[i][j]->add(store[i][k]->multiply(*parentMatrix.getStore()[k][j]));
                 }
@@ -63,8 +67,10 @@ private:
 template<typename T>
 void ParentMatrix<T>::allocate() {
     store.reserve(defs.parentMatrixRows);
+#pragma clang loop vectorize(enable) interleave(enable)
     for (int i = 0; i < defs.parentMatrixRows; i++) {
         store.push_back(std::vector<T*>());
+#pragma clang loop vectorize(enable) interleave(enable)
         for (int j = 0; j < defs.parentMatrixColumns; j++) {
             store[i].push_back(new T(defs.childMatrixRows, defs.childMatrixColumns));
         }

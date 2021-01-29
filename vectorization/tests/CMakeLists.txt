@@ -1,0 +1,2 @@
+add_subdirectory(non_vectorized)
+add_subdirectory(vectorized)
