@@ -4,29 +4,39 @@
 #include <iomanip>
 #include <immintrin.h>
 
-std::unique_ptr<Matrix> VectorizedMatrix::add(std::unique_ptr<Matrix> matrix) {
-    auto result = std::make_unique<VectorizedMatrix>(rows, columns);
-    auto matrixSpace = matrix->getSpace();
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            result->space[i][j] = space[i][j] + matrixSpace[i][j];
-        }
-    }
-    return result;
+VectorizedMatrix::VectorizedMatrix(int rows, int columns) : Matrix(rows, columns) {
+    space = allocate(rows, columns);
+    fill(space, rows, columns);
 }
 
-std::unique_ptr<Matrix> VectorizedMatrix::multiply(Matrix &matrix) {
+void VectorizedMatrix::add(Matrix& matrix) {
+    auto result = allocate(rows, columns);
+    for (int i = 0; i < rows; i++) {
+        auto resultSpace = result[i];
+        auto distSpace = matrix.getSpace()[i];
+        auto hostSpace = space[i];
+        for (int j = 0; j < columns; j+=4) {
+            auto hostValue = _mm256_loadu_pd(hostSpace+j);
+            auto distValue = _mm256_loadu_pd(distSpace+j);
+            auto newValue = _mm256_fmadd_pd(hostValue, distValue, _mm256_setzero_pd());
+            _mm256_storeu_pd(resultSpace+j, newValue);
+        }
+    }
+    free(space, rows, columns);
+    space = result;
+}
+
+void VectorizedMatrix::multiply(Matrix &matrix) {
     if (columns != matrix.getRows()) {
         throw std::runtime_error("cannot multiply matrix");
     }
 
-    auto result = std::make_unique<VectorizedMatrix>(rows, matrix.getColumns());
-
     auto distSpace = matrix.getSpace();
     auto distColumns = matrix.getColumns();
+    auto result = allocate(rows, distColumns);
 
     for(int i = 0; i < rows; i++) {
-        auto *resultSpace = (double *) result->space[i];
+        auto *resultSpace = (double *)result[i];
         for (int m = 0; m < columns; m += 4) {
             _mm256_storeu_pd(resultSpace + m, _mm256_setzero_pd());
         }
@@ -40,7 +50,9 @@ std::unique_ptr<Matrix> VectorizedMatrix::multiply(Matrix &matrix) {
             }
         }
     }
-    return result;
+    free(space, rows, columns);
+    columns = distColumns;
+    space = result;
 }
 
 void VectorizedMatrix::print() {
@@ -50,8 +62,4 @@ void VectorizedMatrix::print() {
         }
         std::cout << std::endl;
     }
-}
-VectorizedMatrix::VectorizedMatrix(int rows, int columns) : Matrix(rows, columns) {
-    allocate();
-    fill();
 }

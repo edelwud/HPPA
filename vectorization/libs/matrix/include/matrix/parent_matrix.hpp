@@ -20,25 +20,25 @@ public:
     ParentMatrix(MatrixDefs defs) : defs(defs) { allocate(); };
 
 public:
-    std::unique_ptr<ParentMatrix<T>> multiply(ParentMatrix<T>& parentMatrix) {
-        if (defs.parentMatrixColumns != parentMatrix.defs.childMatrixRows) {
+    std::unique_ptr<ParentMatrix<T>> multiply(ParentMatrix<T>& matrix) {
+        if (defs.parentMatrixColumns != matrix.defs.childMatrixRows) {
             throw std::runtime_error("cannot multiply matrix");
         }
 
         auto result = std::make_unique<ParentMatrix<T>>(MatrixDefs{
                 defs.parentMatrixRows,
-                parentMatrix.defs.parentMatrixColumns,
+                matrix.defs.parentMatrixColumns,
                 defs.childMatrixRows,
-                parentMatrix.defs.childMatrixColumns
+                matrix.defs.childMatrixColumns
         });
 
-#pragma clang loop vectorize(enable) interleave(enable)
         for(int i = 0; i < defs.parentMatrixRows; ++i)
-#pragma clang loop vectorize(enable) interleave(enable)
-            for(int j = 0; j < parentMatrix.defs.parentMatrixColumns; ++j)
-#pragma clang loop vectorize(enable) interleave(enable)
+            for(int j = 0; j < matrix.defs.parentMatrixColumns; ++j)
                 for(int k = 0; k < defs.parentMatrixColumns; ++k) {
-                    result->store[i][j]->add(store[i][k]->multiply(*parentMatrix.getStore()[k][j]));
+                    auto item = *matrix.getStore()[k][j];
+                    store[i][k]->multiply(item);
+                    auto temp = *store[i][j];
+                    result->store[i][j]->add(temp);
                 }
 
         return result;
@@ -67,10 +67,8 @@ private:
 template<typename T>
 void ParentMatrix<T>::allocate() {
     store.reserve(defs.parentMatrixRows);
-#pragma clang loop vectorize(enable) interleave(enable)
     for (int i = 0; i < defs.parentMatrixRows; i++) {
         store.push_back(std::vector<T*>());
-#pragma clang loop vectorize(enable) interleave(enable)
         for (int j = 0; j < defs.parentMatrixColumns; j++) {
             store[i].push_back(new T(defs.childMatrixRows, defs.childMatrixColumns));
         }

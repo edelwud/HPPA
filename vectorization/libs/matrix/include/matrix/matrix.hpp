@@ -8,15 +8,20 @@
 class Matrix {
 public:
     Matrix(int rows, int columns) : rows(rows), columns(columns) {}
+    Matrix(const Matrix&);
+    ~Matrix();
 
-    virtual std::unique_ptr<Matrix> add(std::unique_ptr<Matrix> matrix) = 0;
-    virtual std::unique_ptr<Matrix> multiply(Matrix& matrix) = 0;
+public:
+    virtual void add(Matrix& matrix) = 0;
+    virtual void multiply(Matrix& matrix) = 0;
     virtual void print() = 0;
 
 protected:
-    void fill();
-    void allocate();
-    double getRandomDouble(int min, int max);
+    static void free(double **space, int rows, int columns);
+    static void fill(double **space, int rows, int columns);
+    static void fill(double **space, int rows, int columns, double value);
+    static double** allocate(int rows, int columns);
+    static double getRandomDouble(int min, int max);
 
 public:
     int getRows() const;

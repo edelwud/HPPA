@@ -5,15 +5,8 @@
 #include <stdexcept>
 
 StandardMatrix::StandardMatrix(int rows, int columns) : Matrix(rows, columns) {
-    allocate();
-    fill();
-}
-
-StandardMatrix::~StandardMatrix() {
-    for (int i = 0; i < rows; i++) {
-        delete[] space[i];
-    }
-    delete[] space;
+    space = allocate(rows, columns);
+    fill(space, rows, columns);
 }
 
 void StandardMatrix::print() {
@@ -25,32 +18,34 @@ void StandardMatrix::print() {
     }
 }
 
-std::unique_ptr<Matrix> StandardMatrix::multiply(Matrix& matrix) {
+void StandardMatrix::multiply(Matrix& matrix) {
     if (columns != matrix.getRows()) {
         throw std::runtime_error("cannot multiply matrix");
     }
 
-    auto result = std::make_unique<StandardMatrix>(rows, matrix.getColumns());
-
-    auto resultSpace = result->space;
+    auto distColumns = matrix.getColumns();
     auto distSpace = matrix.getSpace();
-    auto mColumns = matrix.getColumns();
+    auto resultSpace = allocate(rows, distColumns);
 
     for(int i = 0; i < rows; i++)
-        for(int j = 0; j < mColumns; j++)
+        for(int j = 0; j < distColumns; j++)
             for(int k = 0; k < columns; k++) {
-                result->space[i][j] += space[i][k] * distSpace[k][j];
+                resultSpace[i][j] += space[i][k] * distSpace[k][j];
             }
 
-    return result;
+    free(space, rows, columns);
+    columns = distColumns;
+    space = resultSpace;
 }
-std::unique_ptr<Matrix> StandardMatrix::add(std::unique_ptr<Matrix> matrix) {
-    auto result = std::make_unique<StandardMatrix>(rows, columns);
-    auto matrixSpace = matrix->getSpace();
+
+void StandardMatrix::add(Matrix& matrix) {
+    auto resultSpace = allocate(rows, columns);
+    auto distSpace = matrix.getSpace();
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            result->space[i][j] = space[i][j] + matrixSpace[i][j];
+            resultSpace[i][j] = space[i][j] + distSpace[i][j];
         }
     }
-    return result;
+    free(space, rows, columns);
+    space = resultSpace;
 }
