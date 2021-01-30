@@ -1,2 +1,0 @@
-add_executable(test_non_vectorized test_non_vectorized.cpp)
-target_link_libraries(test_non_vectorized ${VECTORIZATION_DEPS} CONAN_PKG::gtest)

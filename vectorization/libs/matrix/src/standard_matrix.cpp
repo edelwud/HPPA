@@ -27,11 +27,17 @@ void StandardMatrix::multiply(Matrix& matrix) {
     auto distSpace = matrix.getSpace();
     auto resultSpace = allocate(rows, distColumns);
 
-    for(int i = 0; i < rows; i++)
-        for(int j = 0; j < distColumns; j++)
-            for(int k = 0; k < columns; k++) {
-                resultSpace[i][j] += space[i][k] * distSpace[k][j];
+    for(int i = 0; i < rows; i++) {
+        auto resultSpacePart = resultSpace[i];
+        auto hostSpacePart = space[i];
+        for (int k = 0; k < columns; k++) {
+            auto hostValue = hostSpacePart[k];
+            auto distSpacePart = distSpace[k];
+            for (int j = 0; j < distColumns; j++) {
+                resultSpacePart[j] += hostValue * distSpacePart[j];
             }
+        }
+    }
 
     free(space, rows, columns);
     columns = distColumns;
@@ -41,9 +47,13 @@ void StandardMatrix::multiply(Matrix& matrix) {
 void StandardMatrix::add(Matrix& matrix) {
     auto resultSpace = allocate(rows, columns);
     auto distSpace = matrix.getSpace();
+
     for (int i = 0; i < rows; i++) {
+        auto distSpacePart = distSpace[i];
+        auto resultSpacePart = resultSpace[i];
+        auto hostSpacePart = space[i];
         for (int j = 0; j < columns; j++) {
-            resultSpace[i][j] = space[i][j] + distSpace[i][j];
+            resultSpacePart[j] = hostSpacePart[j] + distSpacePart[j];
         }
     }
     free(space, rows, columns);

@@ -18,6 +18,13 @@ public:
 
 public:
     ParentMatrix(MatrixDefs defs) : defs(defs) { allocate(); };
+    ~ParentMatrix() {
+        for (auto space : store) {
+            for (auto matrix : space) {
+                delete matrix;
+            }
+        }
+    }
 
 public:
     std::unique_ptr<ParentMatrix<T>> multiply(ParentMatrix<T>& matrix) {
@@ -32,15 +39,23 @@ public:
                 matrix.defs.childMatrixColumns
         });
 
-        for(int i = 0; i < defs.parentMatrixRows; ++i)
-            for(int j = 0; j < matrix.defs.parentMatrixColumns; ++j)
-                for(int k = 0; k < defs.parentMatrixColumns; ++k) {
-                    auto item = *matrix.getStore()[k][j];
-                    store[i][k]->multiply(item);
-                    auto temp = *store[i][j];
-                    result->store[i][j]->add(temp);
-                }
+        auto distStore = matrix.getStore();
+        auto resultStore = result->store;
 
+        for(int i = 0; i < defs.parentMatrixRows; ++i) {
+            auto resultStorePart = resultStore[i];
+            auto hostStorePart = store[i];
+            for (int k = 0; k < defs.parentMatrixColumns; ++k) {
+                auto hostValue = hostStorePart[k];
+                auto distStorePart = distStore[k];
+                for (int j = 0; j < matrix.defs.parentMatrixColumns; ++j) {
+                    auto item = *distStorePart[j];
+                    hostValue->multiply(item);
+                    auto temp = *hostValue;
+                    resultStorePart[j]->add(temp);
+                }
+            }
+        }
         return result;
     }
 
