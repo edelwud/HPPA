@@ -36,11 +36,8 @@ std::unique_ptr<Matrix> StandardMatrix::multiply(Matrix& matrix) {
     auto distSpace = matrix.getSpace();
     auto mColumns = matrix.getColumns();
 
-#pragma clang loop vectorize(enable) interleave(enable)
     for(int i = 0; i < rows; i++)
-#pragma clang loop vectorize(enable) interleave(enable)
         for(int j = 0; j < mColumns; j++)
-#pragma clang loop vectorize(enable) interleave(enable)
             for(int k = 0; k < columns; k++) {
                 result->space[i][j] += space[i][k] * distSpace[k][j];
             }
@@ -50,10 +47,7 @@ std::unique_ptr<Matrix> StandardMatrix::multiply(Matrix& matrix) {
 std::unique_ptr<Matrix> StandardMatrix::add(std::unique_ptr<Matrix> matrix) {
     auto result = std::make_unique<StandardMatrix>(rows, columns);
     auto matrixSpace = matrix->getSpace();
-#pragma clang loop vectorize(enable) interleave(enable)
-#pragma clang loop vectorize_predicate(enable)
     for (int i = 0; i < rows; i++) {
-#pragma clang loop vectorize(enable) interleave(enable)
         for (int j = 0; j < columns; j++) {
             result->space[i][j] = space[i][j] + matrixSpace[i][j];
         }
