@@ -16,6 +16,9 @@ public:
     virtual void multiply(Matrix& matrix) = 0;
     virtual void print() = 0;
 
+public:
+    bool operator==(Matrix const& matrix) const;
+
 protected:
     static void free(double **space, int rows, int columns);
     static void fill(double **space, int rows, int columns);

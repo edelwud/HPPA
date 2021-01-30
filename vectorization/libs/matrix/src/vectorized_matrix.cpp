@@ -6,7 +6,7 @@
 
 VectorizedMatrix::VectorizedMatrix(int rows, int columns) : Matrix(rows, columns) {
     space = allocate(rows, columns);
-    fill(space, rows, columns);
+    fill(space, rows, columns, 10);
 }
 
 void VectorizedMatrix::add(Matrix& matrix) {
@@ -37,9 +37,6 @@ void VectorizedMatrix::multiply(Matrix &matrix) {
 
     for(int i = 0; i < rows; i++) {
         auto *resultSpace = (double *)result[i];
-        for (int m = 0; m < columns; m += 4) {
-            _mm256_storeu_pd(resultSpace + m, _mm256_setzero_pd());
-        }
         for (int k = 0; k < columns; k++) {
             __m256d hostValue = _mm256_set1_pd(space[i][k]);
             for (int j = 0; j < distColumns; j += 4) {

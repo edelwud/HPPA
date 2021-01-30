@@ -78,3 +78,18 @@ void Matrix::fill(double **space, int rows, int columns, double value) {
         }
     }
 }
+
+bool Matrix::operator==(const Matrix &matrix) const {
+    if (rows != matrix.rows || columns != matrix.columns) {
+        return false;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (space[i][j] != matrix.space[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

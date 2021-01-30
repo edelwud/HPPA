@@ -6,7 +6,7 @@
 
 StandardMatrix::StandardMatrix(int rows, int columns) : Matrix(rows, columns) {
     space = allocate(rows, columns);
-    fill(space, rows, columns);
+    fill(space, rows, columns, 10);
 }
 
 void StandardMatrix::print() {

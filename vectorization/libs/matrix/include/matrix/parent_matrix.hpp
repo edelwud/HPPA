@@ -59,6 +59,24 @@ public:
         return result;
     }
 
+    bool operator==(ParentMatrix<T> const& matrix) const {
+        if (defs.parentMatrixRows != matrix.defs.parentMatrixRows ||
+            defs.parentMatrixColumns != matrix.defs.parentMatrixColumns ||
+            defs.childMatrixRows != matrix.defs.childMatrixRows ||
+            defs.childMatrixColumns != matrix.defs.childMatrixColumns) {
+            return false;
+        }
+
+        for (int i = 0; i < defs.parentMatrixRows; i++) {
+            for (int j = 0; j < defs.parentMatrixColumns; j++) {
+                if (!(*store[i][j] == *matrix.store[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     void print() {
         for (int i = 0; i < defs.parentMatrixRows; i++) {
             for (int j = 0; j < defs.parentMatrixColumns; j++) {
