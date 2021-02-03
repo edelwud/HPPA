@@ -13,8 +13,8 @@ template<class T>
 class VectorizationTest : public ::testing::Test {
 protected:
     VectorizationTest() {
-        matrix = new ParentMatrix<T>({ 8, 8, 8, 8 });
-        matrix2 = new ParentMatrix<T>({ 8, 8, 8, 8 });
+        matrix = new ParentMatrix({ 8, 8, 8, 8 }, factory);
+        matrix2 = new ParentMatrix({ 8, 8, 8, 8 }, factory);
     }
 
     ~VectorizationTest() {
@@ -41,6 +41,7 @@ protected:
 
     inline static int counter = 0;
     high_resolution_clock::time_point point;
-    ParentMatrix<T> *matrix;
-    ParentMatrix<T> *matrix2;
+    T factory;
+    ParentMatrix *matrix;
+    ParentMatrix *matrix2;
 };
