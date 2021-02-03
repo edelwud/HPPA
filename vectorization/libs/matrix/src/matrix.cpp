@@ -93,3 +93,11 @@ bool Matrix::operator==(const Matrix &matrix) const {
     }
     return true;
 }
+
+void Matrix::fill(int value) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            space[i][j] = value;
+        }
+    }
+}

@@ -8,15 +8,15 @@
 class StandardVectorizationTest : public VectorizationTest<StandardMatrix> {};
 
 TEST_F(StandardVectorizationTest, StandardMultiplyTest) {
-    log(Benchmark::executeForSeveralTimes(1000, [this](){
+    log(Benchmark::executeForSeveralTimes(ITERATIONS, [this](){
       matrix->multiply(*matrix2);
     }));
 
-    log(Benchmark::executeForSeveralTimes(1000, [this](){
+    log(Benchmark::executeForSeveralTimes(ITERATIONS, [this](){
       matrix->multiply(*matrix2);
     }));
 
-    log(Benchmark::executeForSeveralTimes(1000,[this](){
+    log(Benchmark::executeForSeveralTimes(ITERATIONS,[this](){
       matrix->multiply(*matrix2);
     }));
 }

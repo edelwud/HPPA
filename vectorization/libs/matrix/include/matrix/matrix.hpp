@@ -15,6 +15,7 @@ public:
     virtual void add(Matrix& matrix) = 0;
     virtual void multiply(Matrix& matrix) = 0;
     virtual void print() = 0;
+    void fill(int value);
 
 public:
     bool operator==(Matrix const& matrix) const;

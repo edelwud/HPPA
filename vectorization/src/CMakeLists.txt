@@ -1,1 +1,3 @@
-add_executable(${PROJECT_NAME} main.cpp)
+add_subdirectory(auto_vectorized)
+add_subdirectory(manual_vectorized)
+add_subdirectory(non_vectorized)

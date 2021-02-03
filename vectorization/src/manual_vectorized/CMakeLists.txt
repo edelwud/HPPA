@@ -1,0 +1,2 @@
+add_executable(manual_vectorized manual_vectorized.cpp)
+target_link_libraries(manual_vectorized PRIVATE matrix benchmark)

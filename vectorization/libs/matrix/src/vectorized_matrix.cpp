@@ -35,10 +35,20 @@ void VectorizedMatrix::multiply(Matrix &matrix) {
     auto distColumns = matrix.getColumns();
     auto result = allocate(rows, distColumns);
 
+    /*
+     * A*B=C - result
+     * 1 1 1   2 2 2 2   3 3 3 3
+     * 1 1 1 * 2 2 2 2 = 3 3 3 3
+     * 1 1 1   2 2 2 2   3 3 3 3
+     * 1 1 1             3 3 3 3
+     *
+     *  C[i][j] += A[i][k] * B[k][j]
+     */
+
     for(int i = 0; i < rows; i++) {
         auto *resultSpace = (double *)result[i];
         for (int k = 0; k < columns; k++) {
-            __m256d hostValue = _mm256_set1_pd(space[i][k]);
+            __m256d hostValue = _mm256_set1_pd(space[i][k]); // (x, x, x, x): 64bit * 4 = 256bit
             for (int j = 0; j < distColumns; j += 4) {
                 auto distValue = _mm256_loadu_pd(distSpace[k]+j);
                 auto oldValue = _mm256_loadu_pd(resultSpace+j);

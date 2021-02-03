@@ -1,0 +1,2 @@
+add_executable(non_vectorized non_vectorized.cpp)
+target_link_libraries(non_vectorized PRIVATE matrix-novec benchmark)

@@ -1,2 +1,4 @@
+find_package(GTest CONFIG REQUIRED)
+
 add_executable(test_vectorization test_vectorization.hpp test_standard_vectorization.cpp test_intrinsics_vectorization.cpp test_matrix_common.cpp)
-target_link_libraries(test_vectorization ${VECTORIZATION_DEPS} CONAN_PKG::gtest)
+target_link_libraries(test_vectorization ${VECTORIZATION_DEPS} GTest::main)

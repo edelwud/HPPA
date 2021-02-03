@@ -28,5 +28,10 @@ TEST(vectorized_matrix, CompareWithStandardTest) {
     StandardMatrix matrix1(100, 100);
     StandardMatrix matrix2(100, 100);
     matrix1.multiply(matrix2);
-    matrix1.print();
+
+    VectorizedMatrix matrix3(100, 100);
+    VectorizedMatrix matrix4(100, 100);
+    matrix3.multiply(matrix4);
+
+    ASSERT_EQ(matrix1, matrix3);
 }

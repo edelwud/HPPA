@@ -5,6 +5,8 @@
 #include <benchmark/benchmark.hpp>
 #include <matrix/parent_matrix.hpp>
 
+#define ITERATIONS 5000
+
 using namespace std::chrono;
 
 template<class T>
