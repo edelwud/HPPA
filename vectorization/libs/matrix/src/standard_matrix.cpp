@@ -18,13 +18,13 @@ void StandardMatrix::print() {
     }
 }
 
-void StandardMatrix::multiply(Matrix& matrix) {
-    if (columns != matrix.getRows()) {
+void StandardMatrix::multiply(Matrix *matrix) {
+    if (columns != matrix->getRows()) {
         throw std::runtime_error("cannot multiply matrix");
     }
 
-    auto distColumns = matrix.getColumns();
-    auto distSpace = matrix.getSpace();
+    auto distColumns = matrix->getColumns();
+    auto distSpace = matrix->getSpace();
     auto resultSpace = allocate(rows, distColumns);
 
     for(int i = 0; i < rows; i++) {
@@ -44,9 +44,9 @@ void StandardMatrix::multiply(Matrix& matrix) {
     space = resultSpace;
 }
 
-void StandardMatrix::add(Matrix& matrix) {
+void StandardMatrix::add(Matrix *matrix) {
     auto resultSpace = allocate(rows, columns);
-    auto distSpace = matrix.getSpace();
+    auto distSpace = matrix->getSpace();
 
     for (int i = 0; i < rows; i++) {
         auto distSpacePart = distSpace[i];

@@ -1,15 +1,12 @@
-#include <matrix/vectorized_matrix.hpp>
+#include <matrix/factory/vectorized_matrix.hpp>
 #include <matrix/parent_matrix.hpp>
 #include <benchmark/benchmark.hpp>
 
-#define ITERATIONS 5000
-
 int main() {
-    ParentMatrix<VectorizedMatrix> matrix({8,8,8,8});
-    ParentMatrix<VectorizedMatrix> matrix2({8,8,8,8});
+    VectorizedMatrixFactory factory;
+    ParentMatrix matrix({256,256,8,8}, factory);
+    ParentMatrix matrix2({256,256,8,8}, factory);
+    std::cout << Benchmark::getExecutionTime([&matrix, &matrix2](){matrix.multiply(matrix2);});
 
-    std::cout << Benchmark::executeForSeveralTimes(ITERATIONS, [&matrix, &matrix2](){
-      matrix.multiply(matrix2);
-    });
     return 0;
 }
