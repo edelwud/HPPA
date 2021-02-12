@@ -9,16 +9,16 @@ VectorizedMatrix::VectorizedMatrix(int rows, int columns) : Matrix(rows, columns
     fill(space, rows, columns, 10);
 }
 
-void VectorizedMatrix::add(Matrix& matrix) {
+void VectorizedMatrix::add(Matrix *matrix) {
     auto result = allocate(rows, columns);
     for (int i = 0; i < rows; i++) {
         auto resultSpace = result[i];
-        auto distSpace = matrix.getSpace()[i];
+        auto distSpace = matrix->getSpace()[i];
         auto hostSpace = space[i];
         for (int j = 0; j < columns; j+=4) {
             auto hostValue = _mm256_loadu_pd(hostSpace+j);
             auto distValue = _mm256_loadu_pd(distSpace+j);
-            auto newValue = _mm256_fmadd_pd(hostValue, distValue, _mm256_setzero_pd());
+            auto newValue = _mm256_fmadd_pd(hostValue, distValue, _mm256_loadu_pd(resultSpace+j));
             _mm256_storeu_pd(resultSpace+j, newValue);
         }
     }
@@ -26,13 +26,13 @@ void VectorizedMatrix::add(Matrix& matrix) {
     space = result;
 }
 
-void VectorizedMatrix::multiply(Matrix &matrix) {
-    if (columns != matrix.getRows()) {
+void VectorizedMatrix::multiply(Matrix *matrix) {
+    if (columns != matrix->getRows()) {
         throw std::runtime_error("cannot multiply matrix");
     }
 
-    auto distSpace = matrix.getSpace();
-    auto distColumns = matrix.getColumns();
+    auto distSpace = matrix->getSpace();
+    auto distColumns = matrix->getColumns();
     auto result = allocate(rows, distColumns);
 
     /*

@@ -3,8 +3,6 @@
 #include <matrix/factory/standard_matrix.hpp>
 #include <matrix/factory/vectorized_matrix.hpp>
 #include <matrix/parent_matrix.hpp>
-#include <matrix/standard_matrix.hpp>
-#include <matrix/vectorized_matrix.hpp>
 
 TEST(parent_matrix, AllocateTest) {
     StandardMatrixFactory factory;

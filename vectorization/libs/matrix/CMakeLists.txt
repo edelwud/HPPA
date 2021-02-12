@@ -44,7 +44,7 @@ foreach(LIBRARY_NAME ${LIBRARY_NAMES})
                 $<INSTALL_INTERFACE:include>)
 endforeach(LIBRARY_NAME)
 
-target_compile_options(matrix PRIVATE -O3 -ftree-vectorize -fopt-info-vec-optimized)
+target_compile_options(matrix PRIVATE -O2 -ftree-vectorize -fopt-info-vec-optimized)
 target_compile_options(matrix-novec PRIVATE -O2 -fno-tree-vectorize -fopt-info-vec-optimized)
 
 add_subdirectory(tests)

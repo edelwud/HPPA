@@ -8,15 +8,5 @@
 class IntrinsicsVectorizationTest : public VectorizationTest<VectorizedMatrixFactory> {};
 
 TEST_F(IntrinsicsVectorizationTest, IntrincsisMultiplyTest) {
-    log(Benchmark::executeForSeveralTimes(ITERATIONS, [this](){
-      matrix->multiply(*matrix2);
-    }));
-
-    log(Benchmark::executeForSeveralTimes(ITERATIONS, [this](){
-      matrix->multiply(*matrix2);
-    }));
-
-    log(Benchmark::executeForSeveralTimes(ITERATIONS, [this](){
-      matrix->multiply(*matrix2);
-    }));
+    matrix->multiply(*matrix2);
 }

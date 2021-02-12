@@ -10,7 +10,7 @@ ParentMatrix::ParentMatrix(
 }
 
 void ParentMatrix::multiply(ParentMatrix &matrix) {
-    if (defs.parentMatrixColumns != matrix.defs.childMatrixRows) {
+    if (defs.parentMatrixColumns != matrix.defs.parentMatrixRows) {
         throw std::runtime_error("cannot multiply matrix");
     }
 
@@ -20,7 +20,7 @@ void ParentMatrix::multiply(ParentMatrix &matrix) {
     for(int i = 0; i < defs.parentMatrixRows; ++i) {
         for (int k = 0; k < defs.parentMatrixColumns; ++k) {
             for (int j = 0; j < matrix.defs.parentMatrixColumns; ++j) {
-                store[i][k]->multiply(*distStore[k][j]);
+                store[i][k]->multiply(distStore[k][j]);
                 resultStore[i][j] = store[i][k];
             }
         }
@@ -73,7 +73,7 @@ void ParentMatrix::add(ParentMatrix &matrix) {
     auto [pmr, pmc, cmr, cmc] = matrix.defs;
     for (int i = 0; i < pmr; i++) {
         for (int j = 0; j < pmc; j++) {
-            store[i][j]->add(*matrix.getStore()[i][j]);
+            store[i][j]->add(matrix.getStore()[i][j]);
         }
     }
 }
