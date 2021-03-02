@@ -1,9 +1,10 @@
+#include <cstdlib>
+
 #include <matrix/matrix.hpp>
 
 Matrix::~Matrix() {
     free(space, rows, columns);
 }
-
 
 Matrix::Matrix(const Matrix& matrix) {
     rows = matrix.rows;
