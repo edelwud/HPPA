@@ -59,3 +59,7 @@ void StandardMatrix::add(Matrix *matrix) {
     free(space, rows, columns);
     space = resultSpace;
 }
+
+Matrix *StandardMatrix::clone() {
+    return new StandardMatrix(*this);
+}

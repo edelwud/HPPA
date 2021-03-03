@@ -1,5 +1,6 @@
 #include <cstdlib>
 
+#include <iostream>
 #include <matrix/matrix.hpp>
 
 Matrix::~Matrix() {
@@ -101,4 +102,8 @@ void Matrix::fill(int value) {
             space[i][j] = value;
         }
     }
+}
+
+void Matrix::setSpace(double **space) {
+    this->space = space;
 }

@@ -9,12 +9,13 @@ class Matrix {
 public:
     Matrix(int rows, int columns) : rows(rows), columns(columns) {}
     Matrix(const Matrix&);
-    ~Matrix();
+    virtual ~Matrix();
 
 public:
     virtual void add(Matrix* matrix) = 0;
     virtual void multiply(Matrix* matrix) = 0;
     virtual void print() = 0;
+    virtual Matrix* clone() = 0;
     void fill(int value);
 
 public:
@@ -35,6 +36,7 @@ public:
     void setColumns(double columns);
 
     double** getSpace() const;
+    void setSpace(double **space);
 
 protected:
     double **space;

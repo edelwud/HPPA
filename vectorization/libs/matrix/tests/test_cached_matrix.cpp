@@ -2,6 +2,8 @@
 #include <matrix/cached_matrix.hpp>
 #include <matrix/vectorized_matrix.hpp>
 
+#include <cmath>
+
 TEST(cached_matrix, AllocateTest) {
     CachedMatrix matrix(1, 2);
 }
@@ -25,12 +27,12 @@ TEST(cached_matrix, AddMatrixTest) {
 }
 
 TEST(cached_matrix, CompareWithStandardTest) {
-    CachedMatrix matrix1(100, 100);
-    CachedMatrix matrix2(100, 100);
+    CachedMatrix matrix1(MATRIX_BLOCK_SIDE*10, MATRIX_BLOCK_SIDE*10);
+    CachedMatrix matrix2(MATRIX_BLOCK_SIDE*10, MATRIX_BLOCK_SIDE*10);
     matrix1.multiply(&matrix2);
 
-    VectorizedMatrix matrix3(100, 100);
-    VectorizedMatrix matrix4(100, 100);
+    VectorizedMatrix matrix3(MATRIX_BLOCK_SIDE*10, MATRIX_BLOCK_SIDE*10);
+    VectorizedMatrix matrix4(MATRIX_BLOCK_SIDE*10, MATRIX_BLOCK_SIDE*10);
     matrix3.multiply(&matrix4);
 
     ASSERT_EQ(matrix1, matrix3);

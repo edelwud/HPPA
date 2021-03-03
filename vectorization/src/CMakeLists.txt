@@ -1,3 +1,4 @@
 add_subdirectory(auto_vectorized)
 add_subdirectory(manual_vectorized)
 add_subdirectory(non_vectorized)
+add_subdirectory(cached_vectorized)
