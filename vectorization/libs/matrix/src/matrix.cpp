@@ -1,9 +1,11 @@
+#include <cstdlib>
+
+#include <iostream>
 #include <matrix/matrix.hpp>
 
 Matrix::~Matrix() {
     free(space, rows, columns);
 }
-
 
 Matrix::Matrix(const Matrix& matrix) {
     rows = matrix.rows;
@@ -100,4 +102,8 @@ void Matrix::fill(int value) {
             space[i][j] = value;
         }
     }
+}
+
+void Matrix::setSpace(double **space) {
+    this->space = space;
 }

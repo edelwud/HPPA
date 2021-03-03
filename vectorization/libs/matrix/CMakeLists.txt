@@ -15,14 +15,14 @@ set(LIBRARY_HEADERS
         ${LIBRARY_HEADERS_DIR}/factory/vectorized_matrix.hpp
         ${LIBRARY_HEADERS_DIR}/parent_matrix.hpp
         ${LIBRARY_HEADERS_DIR}/parent_matrix.hpp
-        ${LIBRARY_HEADERS_DIR}/vectorized_matrix.hpp)
+        ${LIBRARY_HEADERS_DIR}/vectorized_matrix.hpp include/matrix/cached_matrix.hpp include/matrix/factory/cached_matrix.hpp)
 
 set(LIBRARY_SOURCE_DIR src)
 set(LIBRARY_SOURCE
         ${LIBRARY_SOURCE_DIR}/matrix.cpp
         ${LIBRARY_SOURCE_DIR}/standard_matrix.cpp
         ${LIBRARY_SOURCE_DIR}/parent_matrix.cpp
-        ${LIBRARY_SOURCE_DIR}/vectorized_matrix.cpp)
+        ${LIBRARY_SOURCE_DIR}/vectorized_matrix.cpp src/cached_matrix.cpp)
 
 foreach(LIBRARY_NAME ${LIBRARY_NAMES})
     add_library(

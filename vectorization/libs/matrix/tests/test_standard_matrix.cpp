@@ -17,6 +17,6 @@ TEST(standard_matrix, PrintTest) {
 TEST(standard_matrix, MultiplyTest) {
     StandardMatrix matrix1(5, 5);
     StandardMatrix matrix2(5, 7);
-    matrix1.multiply(matrix2);
+    matrix1.multiply(&matrix2);
     matrix1.print();
 }

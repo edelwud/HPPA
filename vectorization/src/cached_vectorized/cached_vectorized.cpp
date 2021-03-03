@@ -1,12 +1,11 @@
 #include <benchmark/benchmark.hpp>
 #include <matrix/parent_matrix.hpp>
-#include <matrix/cached_matrix.hpp>
-#include <matrix/factory/vectorized_matrix.hpp>
+#include <matrix/factory/cached_matrix.hpp>
 
 int main() {
-    VectorizedMatrixFactory factory;
+    CachedMatrixFactory factory;
     ParentMatrix matrix(
-        {
+    {
             3,
             3,
             MATRIX_BLOCK_SIDE*2,

@@ -33,22 +33,12 @@ void VectorizedMatrix::multiply(Matrix *matrix) {
 
     auto distSpace = matrix->getSpace();
     auto distColumns = matrix->getColumns();
-    auto result = allocate(rows, distColumns);
-
-    /*
-     * A*B=C - result
-     * 1 1 1   2 2 2 2   3 3 3 3
-     * 1 1 1 * 2 2 2 2 = 3 3 3 3
-     * 1 1 1   2 2 2 2   3 3 3 3
-     * 1 1 1             3 3 3 3
-     *
-     *  C[i][j] += A[i][k] * B[k][j]
-     */
+    auto result = allocate(rows, distColumns+4);
 
     for(int i = 0; i < rows; i++) {
         auto *resultSpace = (double *)result[i];
         for (int k = 0; k < columns; k++) {
-            __m256d hostValue = _mm256_set1_pd(space[i][k]); // (x, x, x, x): 64bit * 4 = 256bit
+            __m256d hostValue = _mm256_set1_pd(space[i][k]);
             for (int j = 0; j < distColumns; j += 4) {
                 auto distValue = _mm256_loadu_pd(distSpace[k]+j);
                 auto oldValue = _mm256_loadu_pd(resultSpace+j);
@@ -69,4 +59,8 @@ void VectorizedMatrix::print() {
         }
         std::cout << std::endl;
     }
+}
+
+Matrix *VectorizedMatrix::clone() {
+    return new VectorizedMatrix(*this);
 }

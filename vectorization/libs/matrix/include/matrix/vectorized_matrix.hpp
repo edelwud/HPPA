@@ -12,4 +12,5 @@ public:
     void add(Matrix* matrix) override;
     void multiply(Matrix* matrix) override;
     void print() override;
+    Matrix* clone() override;
 };
