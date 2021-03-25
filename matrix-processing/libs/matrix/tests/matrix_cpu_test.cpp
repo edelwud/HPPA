@@ -2,13 +2,17 @@
 
 #include <matrix/matrix-cpu.hpp>
 
-TEST(matrix_cpu, ExecutionTimeTest) {
-    MatrixCPU matrix(1024*12, 1024*12);
+TEST(matrix_cpu, InitializeTest) {
+    MatrixCPU matrix(100, 100);
     matrix.initialize();
-    matrix.process();
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(matrix_cpu, ExecutionTest) {
+    MatrixCPU matrix(8, 14);
+    matrix.initialize();
+    std::cout << "BEFORE:" << std::endl;
+    matrix.print();
+    matrix.process();
+    std::cout << "AFTER:" << std::endl;
+    matrix.print();
 }

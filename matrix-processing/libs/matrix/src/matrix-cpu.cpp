@@ -15,6 +15,8 @@ void MatrixCPU::process() {
         auto rowsOffset = i*columns;
         auto doubleRowsOffset = rowsOffset;
         for (int j = 0; j < columns; j += 4) {
+            if (j + 4 > columns)
+                continue;
             auto startResultOffset = doubleRowsOffset + (int)std::ceil(j/2);
             result[startResultOffset] = matrix[rowsOffset + j + 2];
             result[startResultOffset+1] = matrix[rowsOffset + j + 3];
