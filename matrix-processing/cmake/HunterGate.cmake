@@ -522,7 +522,7 @@ macro(HunterGate)
       string(COMPARE EQUAL "${_sha1_value_lower}" "${_HUNTER_GATE_SHA1_lower}" _is_equal)
       if(NOT _is_equal)
         hunter_gate_internal_error(
-            "Short SHA1 collision:"
+            "char SHA1 collision:"
             "  ${_sha1_value} (from ${_sha1_location})"
             "  ${HUNTER_GATE_SHA1} (HunterGate)"
         )

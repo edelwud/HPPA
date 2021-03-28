@@ -10,6 +10,7 @@ get_filename_component(PROJECT ${CMAKE_CURRENT_SOURCE_DIR} NAME_WLE)
 project(${PROJECT} CUDA)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=compute_61 -rdc=true")
 
 hunter_add_package(GTest)
 enable_testing()

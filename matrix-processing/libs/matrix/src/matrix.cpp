@@ -6,8 +6,8 @@
 Matrix::Matrix(int n, int m) {
     rows = n;
     columns = m;
-
-    matrix = new short[rows * columns];
+    size = columns*rows;
+    matrix = new char[size];
 }
 
 int Matrix::getRows() const {
@@ -30,20 +30,20 @@ Matrix::~Matrix() {
     delete[] matrix;
 }
 
-void Matrix::print(int n, int m) {
+void Matrix::print(char* matrix, int n, int m) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            std::cout << std::setw(4) << matrix[i*m + j] << ' ';
+            std::cout << std::setw(4) << (int)matrix[i*m + j] << ' ';
         }
         std::cout << std::endl;
     }
 }
 
 void Matrix::print() {
-    print(rows, columns);
+    print(matrix, rows, columns);
 }
 
-bool Matrix::operator=(Matrix& matrixObj) {
+bool Matrix::operator==(Matrix& matrixObj) {
     for (int i = 0; i < matrixObj.getRows(); i++) {
         for (int j = 0; j < matrixObj.getColumns(); j++) {
             if (matrix[i*columns+j] != matrixObj.matrix[i*columns+j]) {

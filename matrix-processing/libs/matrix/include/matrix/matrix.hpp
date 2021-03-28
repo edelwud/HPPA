@@ -1,7 +1,5 @@
 #pragma once
 
-#define MASK_SIZE 2
-
 class Matrix {
 public:
     explicit Matrix(int n, int m);
@@ -12,11 +10,11 @@ public:
     virtual void initialize() = 0;
 
 public:
-    void print();
-    void print(int n, int m);
+    virtual void print();
+    static void print(char* data, int n, int m);
 
 public:
-    bool operator=(Matrix& matrix);
+    bool operator==(Matrix& matrix);
 
 public:
     int getRows() const;
@@ -28,5 +26,6 @@ public:
 protected:
     int rows;
     int columns;
-    short* matrix;
+    int size;
+    char* matrix;
 };

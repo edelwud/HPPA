@@ -1,3 +1,3 @@
 #pragma once
 
-__global__ void random(short* devMemory);
+__global__ void random(char* devMemory);
