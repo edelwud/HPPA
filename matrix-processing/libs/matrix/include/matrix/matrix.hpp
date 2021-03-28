@@ -11,7 +11,7 @@ public:
 
 public:
     virtual void print();
-    static void print(char* data, int n, int m);
+    static void print(unsigned char* data, int n, int m);
 
 public:
     bool operator==(Matrix& matrix);
@@ -27,5 +27,5 @@ protected:
     int rows;
     int columns;
     int size;
-    char* matrix;
+    unsigned char* matrix;
 };

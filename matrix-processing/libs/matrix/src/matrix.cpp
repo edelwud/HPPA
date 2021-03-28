@@ -7,7 +7,7 @@ Matrix::Matrix(int n, int m) {
     rows = n;
     columns = m;
     size = columns*rows;
-    matrix = new char[size];
+    matrix = new unsigned char[size];
 }
 
 int Matrix::getRows() const {
@@ -30,7 +30,7 @@ Matrix::~Matrix() {
     delete[] matrix;
 }
 
-void Matrix::print(char* matrix, int n, int m) {
+void Matrix::print(unsigned char* matrix, int n, int m) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             std::cout << std::setw(4) << (int)matrix[i*m + j] << ' ';

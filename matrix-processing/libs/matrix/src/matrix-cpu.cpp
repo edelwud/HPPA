@@ -9,7 +9,7 @@ MatrixCPU::MatrixCPU(int n, int m) : Matrix(n, m) {
 void MatrixCPU::process() {
     int n = rows*2;
     int m = columns/2;
-    char* result = new char[rows * columns];
+    auto* result = new unsigned char[rows * columns];
 
     for (int i = 0; i < rows; i++) {
         auto rowsOffset = i*columns;
@@ -33,7 +33,7 @@ void MatrixCPU::process() {
 
 void MatrixCPU::initialize() {
     std::default_random_engine generator;
-    std::uniform_int_distribution<char> distribution(10,100);
+    std::uniform_int_distribution<unsigned char> distribution(10,100);
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {

@@ -8,11 +8,13 @@ TEST(matrix_cpu, InitializeTest) {
 }
 
 TEST(matrix_cpu, ExecutionTest) {
-    MatrixCPU matrix(10, 10);
-    matrix.initialize();
+    MatrixCPU matrix(20, 16);
+
     std::cout << "BEFORE:" << std::endl;
+    matrix.initialize();
     matrix.print();
-    matrix.process();
+
     std::cout << "AFTER:" << std::endl;
+    matrix.process();
     matrix.print();
 }
