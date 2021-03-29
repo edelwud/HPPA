@@ -2,7 +2,7 @@
 
 class Matrix {
 public:
-    explicit Matrix(int n, int m);
+    explicit Matrix(long long n, long long m);
     virtual ~Matrix();
 
 public:
@@ -11,21 +11,21 @@ public:
 
 public:
     virtual void print();
-    static void print(unsigned char* data, int n, int m);
+    static void print(unsigned char* data, long long n, long long m);
 
 public:
     bool operator==(Matrix& matrix);
 
 public:
-    int getRows() const;
-    void setRows(int n);
+    long long getRows() const;
+    void setRows(long long n);
 
-    int getColumns() const;
-    void setColumns(int m);
+    long long getColumns() const;
+    void setColumns(long long m);
 
 protected:
-    int rows;
-    int columns;
-    int size;
+    long long rows;
+    long long columns;
+    long long size;
     unsigned char* matrix;
 };

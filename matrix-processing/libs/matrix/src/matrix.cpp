@@ -3,26 +3,26 @@
 #include <iostream>
 #include <iomanip>
 
-Matrix::Matrix(int n, int m) {
+Matrix::Matrix(long long n, long long m) {
     rows = n;
     columns = m;
     size = columns*rows;
     matrix = new unsigned char[size];
 }
 
-int Matrix::getRows() const {
+long long Matrix::getRows() const {
     return rows;
 }
 
-void Matrix::setRows(int n) {
+void Matrix::setRows(long long n) {
     rows = n;
 }
 
-int Matrix::getColumns() const {
+long long Matrix::getColumns() const {
     return columns;
 }
 
-void Matrix::setColumns(int m) {
+void Matrix::setColumns(long long m) {
     columns = m;
 }
 
@@ -30,10 +30,10 @@ Matrix::~Matrix() {
     delete[] matrix;
 }
 
-void Matrix::print(unsigned char* matrix, int n, int m) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            std::cout << std::setw(4) << (int)matrix[i*m + j] << ' ';
+void Matrix::print(unsigned char* matrix, long long n, long long m) {
+    for (long long i = 0; i < n; i++) {
+        for (long long j = 0; j < m; j++) {
+            std::cout << std::setw(4) << (long long)matrix[i*m + j] << ' ';
         }
         std::cout << std::endl;
     }
@@ -44,8 +44,8 @@ void Matrix::print() {
 }
 
 bool Matrix::operator==(Matrix& matrixObj) {
-    for (int i = 0; i < matrixObj.getRows(); i++) {
-        for (int j = 0; j < matrixObj.getColumns(); j++) {
+    for (long long i = 0; i < matrixObj.getRows(); i++) {
+        for (long long j = 0; j < matrixObj.getColumns(); j++) {
             if (matrix[i*columns+j] != matrixObj.matrix[i*columns+j]) {
                 return false;
             }

@@ -9,20 +9,20 @@
 
 #include <iostream>
 
-__global__ void processing(const unsigned char *devSource, unsigned char *devDest, int rows, int columns) {
-    unsigned int index = (blockDim.x*blockIdx.x+threadIdx.x)*4;
+__global__ void processing(const unsigned char *devSource, unsigned char *devDest, long long rows, long long columns) {
+    unsigned long long index = (blockDim.x*blockIdx.x+threadIdx.x)*4;
 
     if (index >= rows*columns)
         return;
 
-    unsigned int sourceRow = index/columns;
-    unsigned int destOffset = index/2+sourceRow*columns/2;
+    unsigned long long sourceRow = index/columns;
+    unsigned long long destOffset = index/2+sourceRow*columns/2;
 
     memcpy(devDest+destOffset, devSource+index+2, 2);
     memcpy(devDest+destOffset+columns/2, devSource+index, 2);
 }
 
-void launchProcessing(unsigned char* devSource, unsigned char* devDest, int rows, int columns) {
+void launchProcessing(unsigned char* devSource, unsigned char* devDest, long long rows, long long columns) {
     size_t size = rows*columns/4;
     dim3 threadsPerBlock(4);
     dim3 numBlocks((size+threadsPerBlock.x-1)/threadsPerBlock.x);

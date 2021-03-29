@@ -1,4 +1,4 @@
 #pragma once
 
-void launchProcessing(unsigned char*, unsigned char*, int rows, int columns);
-__global__ void processing(const unsigned char*, unsigned char*, int rows, int columns);
+void launchProcessing(unsigned char*, unsigned char*, long long rows, long long columns);
+__global__ void processing(const unsigned char*, unsigned char*, long long rows, long long columns);

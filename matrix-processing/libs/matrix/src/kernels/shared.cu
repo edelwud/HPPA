@@ -1,9 +1,9 @@
 #include <kernels/shared.cuh>
 
-__global__ void reserve(unsigned char* devMemory, int n) {
+__global__ void reserve(unsigned char* devMemory, long long n) {
     extern __shared__ int s[];
-    int t = threadIdx.x;
-    int tr = n-t-1;
+    long long t = threadIdx.x;
+    long long tr = n-t-1;
     auto* charData = (unsigned char*)s;
     charData[t] = devMemory[t];
     __syncthreads();

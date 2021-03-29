@@ -4,7 +4,7 @@
 
 class MatrixGPU : public Matrix {
 public:
-    explicit MatrixGPU(int n, int m);
+    explicit MatrixGPU(long long n, long long m);
 
 public:
     void process() override;

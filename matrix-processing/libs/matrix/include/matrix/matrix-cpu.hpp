@@ -4,7 +4,7 @@
 
 class MatrixCPU : public Matrix {
 public:
-    explicit MatrixCPU(int n, int m);
+    explicit MatrixCPU(long long n, long long m);
 
 public:
     void process() override;

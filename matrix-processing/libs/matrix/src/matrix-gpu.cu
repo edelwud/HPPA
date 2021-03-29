@@ -7,7 +7,7 @@
 #include <kernels/processing.cuh>
 #include <utils/error_check.hpp>
 
-MatrixGPU::MatrixGPU(int n, int m) : Matrix(n, m) {}
+MatrixGPU::MatrixGPU(long long n, long long m) : Matrix(n, m) {}
 
 void MatrixGPU::process() {
     unsigned char *devSource;
