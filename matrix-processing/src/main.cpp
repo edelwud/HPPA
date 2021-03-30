@@ -10,11 +10,11 @@
 int main() {
     MatrixCPU matrixCpu(MATRIX_ROWS, MATRIX_COLS);
     auto matrixCpuTime = Benchmark::executionTime([&matrixCpu](){
-        matrixCpu.initialize();
-        matrixCpu.process();
+//        matrixCpu.initialize();
+//        matrixCpu.process();
     });
 
-    MatrixGPU matrixGpu(MATRIX_ROWS, MATRIX_COLS);
+    MatrixGPU matrixGpu(MATRIX_ROWS*2, MATRIX_COLS);
     auto matrixGpuTime = Benchmark::executionTime([&matrixGpu](){
         matrixGpu.initialize();
         matrixGpu.process();

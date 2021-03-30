@@ -15,9 +15,7 @@ void MatrixGPU::process() {
     checkCudaErrors(cudaMalloc((void**)&devSource, size));
     checkCudaErrors(cudaMalloc((void**)&devDest, size));
 
-    checkCudaErrors(cudaMemcpy(devSource, matrix, size, cudaMemcpyHostToDevice));
-
-    launchProcessing(devSource, devDest, rows, columns);
+    launchProcessing(matrix, devSource, devDest, rows, columns);
 
     columns /= 2;
     rows *= 2;
