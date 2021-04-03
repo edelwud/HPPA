@@ -1,0 +1,27 @@
+get_filename_component(LIBRARY_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WLE)
+set(LIBRARY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/${LIBRARY_NAME})
+set(LIBRARY_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+file(GLOB_RECURSE HEADERS ${LIBRARY_INCLUDE_DIR}/*)
+file(GLOB_RECURSE SOURCES ${LIBRARY_SOURCE_DIR}/*)
+
+add_library(${LIBRARY_NAME} STATIC ${HEADERS} ${SOURCES})
+
+set_target_properties(
+        ${LIBRARY_NAME}
+        PROPERTIES
+        CUDA_SEPARABLE_COMPILATION ON)
+
+target_include_directories(
+        ${LIBRARY_NAME}
+        PRIVATE
+        $<BUILD_INTERFACE:${LIBRARY_INCLUDE_DIR}>
+        $<INSTALL_INTERFACE:include/${LIBRARY_NAME}>)
+
+target_include_directories(
+        ${LIBRARY_NAME}
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>)
+
+add_subdirectory(tests)

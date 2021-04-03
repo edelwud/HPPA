@@ -5,11 +5,11 @@ int* AllocArray() {
 }
 
 void FillArray(int *array, int rows) {
-  int columns = ARRAY_SIZE / rows / ELEMENTS;
+  int columns = ARRAY_SIZE / rows;
 
   for (int i = 0; i < columns; i++) {
     for (int j = 0; j < rows; j++) {
-      int currentIndex = j * OFFSET + i * ELEMENTS;
+      int currentIndex = j * OFFSET + i;
 
       if (j + 1 == rows && i + 1 == columns) {
         array[currentIndex] = 0;
@@ -17,11 +17,11 @@ void FillArray(int *array, int rows) {
       }
 
       if (j + 1 == rows) {
-        array[currentIndex] = (i + 1) * ELEMENTS;
+        array[currentIndex] = (i + 1);
         continue;
       }
 
-      array[currentIndex] = (j + 1) * OFFSET + i * ELEMENTS;
+      array[currentIndex] = (j + 1) * OFFSET + i;
     }
   }
 }

@@ -11,7 +11,7 @@ TEST(matrix_gpu, InitializeTest) {
 }
 
 TEST(matrix_gpu, ExecutionTest) {
-    MatrixGPU matrix(20, 16);
+    MatrixGPU matrix(20, 20);
 
     std::cout << "BEFORE:" << std::endl;
     matrix.initialize();
