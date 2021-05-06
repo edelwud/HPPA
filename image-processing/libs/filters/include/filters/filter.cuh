@@ -23,6 +23,7 @@ public:
 
 public:
     std::vector<short> getMask();
+    unsigned int getLength() const;
 
 public:
     Row operator[](int x);

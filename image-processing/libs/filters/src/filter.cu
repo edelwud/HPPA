@@ -12,6 +12,10 @@ std::vector<short> Filter::getMask() {
     return mask;
 }
 
+unsigned int Filter::getLength() const {
+    return rows * columns;
+}
+
 Filter::Row::Row(Filter *filter, int row) {
     this->filter = filter;
     this->row = row;

@@ -1,6 +1,22 @@
 #include <image.cuh>
 
-Image::Image(unsigned char *data, unsigned int w, unsigned int h) : data(data), width(w), height(h) {}
+#include <stdexcept>
 
-void Image::laplaceOperator() {
+Image::Image(const unsigned char *data_, int w, int h) : width(w), height(h) {
+    for (int i = 0; i < width * height; i++) {
+        data[i] = data_[i];
+    }
+}
+
+void Image::setFilter(Filter *filter_) {
+    this->filter = filter_;
+}
+
+short * Image::getData() {
+    return data;
+}
+
+void Image::applyFilter() {
+    if (!filter)
+        throw std::runtime_error("image: filter is not assign");
 }

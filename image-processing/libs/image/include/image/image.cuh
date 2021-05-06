@@ -1,16 +1,19 @@
 #pragma once
 
-#include <functional>
+#include <filters/filter.cuh>
 
 class Image {
 public:
-    explicit Image(unsigned char *data, unsigned int w, unsigned int h);
+    explicit Image(const unsigned char *data, int w, int h);
 
 public:
-    void laplaceOperator();
+    short * getData();
+    void setFilter(Filter *filter);
+    void applyFilter();
 
 private:
-    unsigned char *data;
-    unsigned int width;
-    unsigned int height;
+    Filter *filter = nullptr;
+    short *data;
+    int width;
+    int height;
 };

@@ -3,13 +3,11 @@
 
 #include <gtest/gtest.h>
 
-#include <utils/helpers/helper_image.hpp>
-#include <image/image.cuh>
+#include <loader/loader.hpp>
 
-TEST(image, ExecutionTimeTest) {
-    __loadPPM()
-    Image simple;
-
+TEST(loader, LoadingImageTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
+    ASSERT_EQ(image.width, 640);
 }
 
 int main(int argc, char *argv[]) {
