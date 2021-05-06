@@ -1,6 +1,3 @@
-#include <chrono>
-#include <thread>
-
 #include <gtest/gtest.h>
 
 #include <loader/loader.hpp>

@@ -9,9 +9,9 @@ Loader::Image Loader::loadImage(const std::string& path, unsigned int channels) 
 
     __loadPPM(path.c_str(), &data, &width, &height, &channels);
 
-    auto image = new short [width * height];
+    auto image = new short [width * height * channels];
 
-    for (int i = 0; i < width * height; i++)
+    for (int i = 0; i < width * height * channels; i++)
         image[i] = data[i];
 
     return { image, width, height };

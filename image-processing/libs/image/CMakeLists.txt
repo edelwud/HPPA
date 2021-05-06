@@ -6,7 +6,8 @@ file(GLOB HEADERS ${LIBRARY_INCLUDE_DIR}/*)
 file(GLOB SOURCES ${LIBRARY_SOURCE_DIR}/*)
 
 add_library(${LIBRARY_NAME} STATIC ${HEADERS} ${SOURCES})
-target_link_libraries(${LIBRARY_NAME} utils filters)
+
+target_link_libraries(${LIBRARY_NAME} filters loader)
 
 target_include_directories(
         ${LIBRARY_NAME}

@@ -2,18 +2,14 @@
 
 #include <stdexcept>
 
-Image::Image(const unsigned char *data_, int w, int h) : width(w), height(h) {
-    for (int i = 0; i < width * height; i++) {
-        data[i] = data_[i];
-    }
-}
+Image::Image(Loader::Image image) : image(image) {}
 
 void Image::setFilter(Filter *filter_) {
     this->filter = filter_;
 }
 
-short * Image::getData() {
-    return data;
+Loader::Image Image::getImage() {
+    return image;
 }
 
 void Image::applyFilter() {

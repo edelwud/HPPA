@@ -3,13 +3,19 @@
 
 #include <gtest/gtest.h>
 
-#include <utils/helpers/helper_image.hpp>
+#include <filters/laplace-filter.cuh>
 #include <image/image.cuh>
 
 TEST(image, ExecutionTimeTest) {
-    __loadPPM()
-    Image simple;
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
 
+    Image simple(image);
+
+    auto laplaceFilter = new LaplaceFilter();
+    simple.setFilter(laplaceFilter);
+    simple.applyFilter();
+
+    ASSERT_EQ(simple.getImage().width, 640);
 }
 
 int main(int argc, char *argv[]) {

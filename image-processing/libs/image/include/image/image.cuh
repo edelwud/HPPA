@@ -1,19 +1,18 @@
 #pragma once
 
 #include <filters/filter.cuh>
+#include <loader/loader.hpp>
 
 class Image {
 public:
-    explicit Image(const unsigned char *data, int w, int h);
+    explicit Image(Loader::Image image);
 
 public:
-    short * getData();
+    Loader::Image getImage();
     void setFilter(Filter *filter);
     void applyFilter();
 
 private:
     Filter *filter = nullptr;
-    short *data;
-    int width;
-    int height;
+    Loader::Image image;
 };
