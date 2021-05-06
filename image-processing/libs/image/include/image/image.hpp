@@ -1,6 +1,6 @@
 #pragma once
 
-#include <filters/filter.cuh>
+#include <map>
 #include <loader/loader.hpp>
 
 class Image {
@@ -9,13 +9,12 @@ public:
 
 public:
     Loader::Image getImage();
-    void setFilter(Filter *filter);
+    void setFilter(std::map<int, int> &filter);
 
 public:
     virtual void applyFilter() = 0;
-    virtual void edging() = 0;
 
 protected:
-    Filter *filter;
+    std::map<int, int> filter;
     Loader::Image image;
 };

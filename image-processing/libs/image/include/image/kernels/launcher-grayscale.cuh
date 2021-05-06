@@ -1,6 +1,7 @@
 #pragma once
 
-#include <filters/filter.cuh>
+#include <map>
+
 #include <loader/loader.hpp>
 
-void launchGrayscale(Filter *filter, Loader::Image image);
+float launchGrayscale(std::map<int, int> &filter, Loader::Image &image);

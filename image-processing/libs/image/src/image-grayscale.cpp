@@ -1,13 +1,14 @@
-#include <image-grayscale.cuh>
+#include <image-grayscale.hpp>
 
 #include <kernels/launcher-grayscale.cuh>
-#include <utils/error_check.hpp>
 
 #include <stdexcept>
 
 ImageGrayscale::ImageGrayscale(Loader::Image image) : Image(image) {}
 
 void ImageGrayscale::applyFilter() {
-    if (!filter)
+    if (filter.empty())
         throw std::runtime_error("image: filter is not assign");
+
+    launchGrayscale(filter, image);
 }

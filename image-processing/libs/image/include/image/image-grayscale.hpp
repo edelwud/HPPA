@@ -1,6 +1,6 @@
 #pragma once
 
-#include <image/image.cuh>
+#include <image/image.hpp>
 
 class ImageGrayscale : public Image {
 public:

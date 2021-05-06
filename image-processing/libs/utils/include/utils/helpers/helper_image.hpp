@@ -10,8 +10,7 @@
  */
 
 // These are helper functions for the SDK samples (image,bitmap)
-#ifndef HELPER_IMAGE_H
-#define HELPER_IMAGE_H
+#pragma once
 
 #include <string>
 #include <fstream>
