@@ -12,6 +12,7 @@ public:
         cudaEventRecord(start);
         cudaEventRecord(stop);
     }
+
     static float End() {
         cudaEventRecord(stop);
         cudaEventSynchronize(stop);
@@ -19,9 +20,12 @@ public:
         float milliseconds = 0;
         cudaEventElapsedTime(&milliseconds, start, stop);
 
+        cudaEventDestroy(start);
+        cudaEventDestroy(stop);
+
         return milliseconds;
     }
 
 private:
-    static cudaEvent_t start, stop;
+    static inline cudaEvent_t start, stop;
 };

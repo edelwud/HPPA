@@ -1,6 +1,7 @@
 #include <matrix-gpu.cuh>
 
 #include <cuda.h>
+#include <cuda_runtime_api.h>
 #include <curand.h>
 
 #include <kernels/random.cuh>

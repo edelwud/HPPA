@@ -34,7 +34,7 @@
 #define EXIT_WAIVED 2
 #endif
 
-#include "helper_string.h"
+#include "helper_string.hpp"
 
 // namespace unnamed (internal)
 namespace
