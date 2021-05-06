@@ -2,7 +2,7 @@
 
 #include <functional>
 
-class Benchmark {
+class BenchmarkGPU {
 public:
     static double executionTime(std::function<void()> handler);
 };

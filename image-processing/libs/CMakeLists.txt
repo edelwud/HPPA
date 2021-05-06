@@ -1,2 +1,2 @@
 add_subdirectory(benchmark)
-add_subdirectory(matrix)
+add_subdirectory(image)
