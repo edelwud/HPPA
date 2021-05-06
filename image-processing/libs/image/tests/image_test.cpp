@@ -4,12 +4,12 @@
 #include <gtest/gtest.h>
 
 #include <filters/laplace-filter.cuh>
-#include <image/image.cuh>
+#include <image/image-grayscale.cuh>
 
 TEST(image, ExecutionTimeTest) {
-    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 1);
 
-    Image simple(image);
+    ImageGrayscale simple(image);
 
     auto laplaceFilter = new LaplaceFilter();
     simple.setFilter(laplaceFilter);

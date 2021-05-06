@@ -1,5 +1,7 @@
 #include <image.cuh>
 
+#include <kernels/launcher-grayscale.cuh>
+
 #include <stdexcept>
 
 Image::Image(Loader::Image image) : image(image) {}
@@ -15,4 +17,6 @@ Loader::Image Image::getImage() {
 void Image::applyFilter() {
     if (!filter)
         throw std::runtime_error("image: filter is not assign");
+
+    launchGrayscale(filter, image);
 }

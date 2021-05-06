@@ -10,9 +10,12 @@ public:
 public:
     Loader::Image getImage();
     void setFilter(Filter *filter);
-    void applyFilter();
 
-private:
-    Filter *filter = nullptr;
+public:
+    virtual void applyFilter() = 0;
+    virtual void edging() = 0;
+
+protected:
+    Filter *filter;
     Loader::Image image;
 };
