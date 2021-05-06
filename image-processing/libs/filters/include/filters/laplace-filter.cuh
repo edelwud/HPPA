@@ -1,6 +1,6 @@
 #pragma once
 
-#include <filter.cuh>
+#include <filters/filter.cuh>
 
 #define LAPLACE_FILTER_MASK {   \
         1,  1,  1,              \
