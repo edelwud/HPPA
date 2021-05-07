@@ -1,6 +1,6 @@
 #pragma once
 
-short *addImageBorder(short *sourceImage, size_t height, size_t width) {
+unsigned char  *addImageBorder(unsigned char *sourceImage, size_t height, size_t width) {
     if (height < 1 || width < 1) {
         throw std::runtime_error("invalid array sizes");
     }
@@ -17,14 +17,14 @@ short *addImageBorder(short *sourceImage, size_t height, size_t width) {
     return imageWithBorder;
 }
 
-short *removeImageBorder(short *imageWithBorder, size_t borderedHeight, size_t borderedWidth) {
+unsigned char  *removeImageBorder(unsigned char  *imageWithBorder, size_t borderedHeight, size_t borderedWidth) {
     if (borderedHeight < 3 || borderedWidth < 3) {
         throw std::runtime_error("invalid array sizes");
     }
     auto height = borderedHeight - 2;
     auto width = borderedWidth - 2;
     auto size = height * width;
-    auto imageWithoutBorder = new short[size];
+    auto imageWithoutBorder = new unsigned char [size];
     for (size_t i = 0; i < height; ++i) {
         auto srcOffset = (i + 1) * borderedWidth + 1;
         memcpy(imageWithoutBorder + (i * width), imageWithBorder + srcOffset, width * sizeof(unsigned char ));
