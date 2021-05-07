@@ -1,4 +1,5 @@
 #pragma once
+#include <string.h>
 
 unsigned char  *addImageBorder(unsigned char *sourceImage, size_t height, size_t width) {
     if (height < 1 || width < 1) {

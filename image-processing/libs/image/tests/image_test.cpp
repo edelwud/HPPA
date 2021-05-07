@@ -7,6 +7,7 @@
 #include <filters/kekw-filter.cuh>
 #include <filters/laplace-filter.cuh>
 #include <image/image-grayscale.hpp>
+#include <image/image-grayscale-cpu.hpp>
 
 TEST(image, EmbossingFilteringTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
@@ -29,6 +30,17 @@ TEST(image, LaplaceFilteringTest) {
     simple.applyFilter();
 
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_laplace.pgm", 1);
+}
+
+TEST(image, EmbossingFilteringCpuTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscaleCpu simple(image);
+
+    simple.setFilter(embossingFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_embossing_cpu.pgm", 1);
 }
 
 int main(int argc, char *argv[]) {

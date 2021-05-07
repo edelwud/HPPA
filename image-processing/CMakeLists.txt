@@ -6,6 +6,8 @@ HunterGate(
         SHA1 "53b198e364dc7bc8360fc545f798563229bd7e20"
 )
 
+set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
+
 get_filename_component(PROJECT ${CMAKE_CURRENT_SOURCE_DIR} NAME_WLE)
 project(${PROJECT} CUDA)
 
