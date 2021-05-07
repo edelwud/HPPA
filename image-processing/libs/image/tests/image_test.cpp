@@ -7,6 +7,7 @@
 #include <filters/kekw-filter.cuh>
 #include <filters/laplace-filter.cuh>
 #include <image/image-grayscale.hpp>
+#include <image/image-grayscale-cpu.hpp>
 
 TEST(image, EmbossingFilteringTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
@@ -31,15 +32,48 @@ TEST(image, LaplaceFilteringTest) {
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_laplace.pgm", 1);
 }
 
-TEST(image, KekwFilteringTest) {
+TEST(image, EmbossingFilteringCpuTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
 
-    ImageGrayscale simple(image);
+    ImageGrayscaleCpu simple(image);
 
-    simple.setFilter(kekwFilter);
+    simple.setFilter(embossingFilter);
     simple.applyFilter();
 
-    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_kekw.pgm", 1);
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_embossing_cpu.pgm", 1);
+}
+
+TEST(image, GpuAndCpuIdentity){
+    auto imageGpu = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscale simple(imageGpu);
+
+    simple.setFilter(embossingFilter);
+    simple.applyFilter();
+
+    auto imageCpu = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscaleCpu simpleCpu(imageCpu);
+
+    simpleCpu.setFilter(embossingFilter);
+    simpleCpu.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_embossing_cpu_test.pgm", 1);
+    imageCpu = Loader::loadImage(LOADER_ASSETS_PATH + "sample_embossing_cpu_test.pgm", 1);
+
+
+    ASSERT_EQ(imageGpu.width, imageCpu.width);
+    ASSERT_EQ(imageGpu.height, imageCpu.height);
+
+    for(int i = 0; i < imageGpu.height; ++i){
+        for(int j = 0; j<imageGpu.width; ++j){
+            int index =i*imageGpu.width+j;
+            if(imageGpu.data[index] != imageCpu.data[index]){
+                std::cout << index << "   :" << imageGpu.data[index] << " ::: " << imageCpu.data[index] << std::endl;
+            }
+            ASSERT_EQ(imageGpu.data[index], imageCpu.data[index]);
+        }
+    }
 }
 
 int main(int argc, char *argv[]) {
