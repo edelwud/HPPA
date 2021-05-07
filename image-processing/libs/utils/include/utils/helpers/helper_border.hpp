@@ -7,12 +7,13 @@ short *addImageBorder(short *sourceImage, size_t height, size_t width) {
     auto borderedHeight = height + 2;
     auto borderedWidth = width + 2;
     auto borderedSize = borderedHeight * borderedWidth;
-    auto imageWithBorder = new short[borderedSize];
-    memset(imageWithBorder, 0, borderedSize*sizeof(short));
+    auto imageWithBorder = new unsigned char [borderedSize];
+    memset(imageWithBorder, 0, borderedSize * sizeof(unsigned char ));
     for (size_t i = 1; i < borderedHeight - 1; ++i) {
         auto srcOffset = (i - 1) * width;
-        memcpy(&imageWithBorder[i * borderedWidth + 1], sourceImage + srcOffset, width*sizeof(short));
+        memcpy(&imageWithBorder[i * borderedWidth + 1], sourceImage + srcOffset, width * sizeof(unsigned char ));
     }
+    delete[] sourceImage;
     return imageWithBorder;
 }
 
@@ -25,8 +26,9 @@ short *removeImageBorder(short *imageWithBorder, size_t borderedHeight, size_t b
     auto size = height * width;
     auto imageWithoutBorder = new short[size];
     for (size_t i = 0; i < height; ++i) {
-        auto srcOffset = (i+1) * borderedWidth + 1;
-        memcpy(imageWithoutBorder + (i * width), imageWithBorder + srcOffset, width*sizeof(short));
+        auto srcOffset = (i + 1) * borderedWidth + 1;
+        memcpy(imageWithoutBorder + (i * width), imageWithBorder + srcOffset, width * sizeof(unsigned char ));
     }
+    delete[] imageWithBorder;
     return imageWithoutBorder;
 }

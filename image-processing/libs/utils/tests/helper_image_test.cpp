@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <iomanip>
 
-#include <utils/helpers/helper_image.hpp>
+#include <utils/helpers/helper_border.hpp>
 
 TEST(helper_image, AddImageBorderTest) {
     int height = 4;

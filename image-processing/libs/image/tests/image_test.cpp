@@ -3,33 +3,43 @@
 
 #include <gtest/gtest.h>
 
-#include <filters/laplace-filter.hpp>
+#include <filters/embossing-filter.cuh>
+#include <filters/kekw-filter.cuh>
+#include <filters/laplace-filter.cuh>
 #include <image/image-grayscale.hpp>
 
-//TEST(image, ExecutionTimeTest) {
-//    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 1);
-//
-//    ImageGrayscale simple(image);
-//
-//    auto laplaceFilter = new LaplaceFilter();
-//    simple.setFilter(laplaceFilter);
-//    simple.applyFilter();
-//
-//    ASSERT_EQ(simple.getImage().width, 640);
-//}
-
-TEST(image, FilteringTest) {
+TEST(image, EmbossingFilteringTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
 
     ImageGrayscale simple(image);
 
-    auto kekw = simple.getImage().data;
-    for (int i = 0; i < 128*128; i++)
-        std::cout << kekw[i] << ' ';
-    std::cout << std::endl;
+    simple.setFilter(embossingFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_embossing.pgm", 1);
+}
+
+
+TEST(image, LaplaceFilteringTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscale simple(image);
 
     simple.setFilter(laplaceFilter);
     simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_laplace.pgm", 1);
+}
+
+TEST(image, KekwFilteringTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscale simple(image);
+
+    simple.setFilter(kekwFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_kekw.pgm", 1);
 }
 
 int main(int argc, char *argv[]) {

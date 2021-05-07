@@ -7,7 +7,7 @@
 ImageGrayscale::ImageGrayscale(Loader::Image image) : Image(image) {}
 
 void ImageGrayscale::applyFilter() {
-    if (filter.empty())
+    if (!filter)
         throw std::runtime_error("image: filter is not assign");
 
     launchGrayscale(filter, image);

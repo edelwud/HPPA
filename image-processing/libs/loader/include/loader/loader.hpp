@@ -6,10 +6,11 @@
 
 namespace Loader {
     struct Image {
-        short * data;
+        unsigned char * data;
         unsigned int width;
         unsigned int height;
     };
 
     Image loadImage(const std::string& path, unsigned int channels);
+    void saveImage(Image image, const std::string& path, unsigned int channels);
 }

@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <filters/laplace-filter.hpp>
+#include <filters/laplace-filter.cuh>
 
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -4,4 +4,4 @@
 
 #include <loader/loader.hpp>
 
-float launchGrayscale(std::map<int, int> &filter, Loader::Image &image);
+float launchGrayscale(char *filter, Loader::Image &image);

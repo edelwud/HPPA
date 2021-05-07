@@ -9,12 +9,12 @@ public:
 
 public:
     Loader::Image getImage();
-    void setFilter(std::map<int, int> &filter);
+    void setFilter(char *filter);
 
 public:
     virtual void applyFilter() = 0;
 
 protected:
-    std::map<int, int> filter;
+    char *filter;
     Loader::Image image;
 };

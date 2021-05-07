@@ -1,14 +1,8 @@
 #include <image.hpp>
 
-#include <kernels/launcher-grayscale.cuh>
+Image::Image(Loader::Image image) : image(image) {}
 
-#include <stdexcept>
-
-Image::Image(Loader::Image image) : image(image) {
-
-}
-
-void Image::setFilter(std::map<int, int> &filter_) {
+void Image::setFilter(char *filter_) {
     filter = filter_;
 }
 

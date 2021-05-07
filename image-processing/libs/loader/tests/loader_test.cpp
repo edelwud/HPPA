@@ -12,6 +12,11 @@ TEST(loader, LoadingGrayscaleImageTest) {
     ASSERT_EQ(image.width, 5184);
 }
 
+TEST(loader, SavingGrayscaleImageTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+    Loader::saveImage(image, LOADER_ASSETS_PATH + "sample_saved.pgm", 1);
+}
+
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
