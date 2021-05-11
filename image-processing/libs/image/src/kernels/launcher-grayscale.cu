@@ -33,7 +33,6 @@ float launchGrayscale(char *filter, Loader::Image &image) {
 
     cudaEventRecord(start);
     filterOperator<<<grid, block>>>(devFilter, devSource, devDest, pitch, image.width, image.height);
-    cudaThreadSynchronize();
     cudaEventRecord(stop);
 
     checkCudaErrors(cudaMemcpy2D(image.data, image.width * sizeof(unsigned char), devDest, pitch,

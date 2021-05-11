@@ -6,8 +6,8 @@
 #include <filters/embossing-filter.cuh>
 #include <filters/kekw-filter.cuh>
 #include <filters/laplace-filter.cuh>
-#include <image/image-grayscale.hpp>
 #include <image/image-grayscale-cpu.hpp>
+#include <image/image-grayscale.hpp>
 
 TEST(image, EmbossingFilteringTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
@@ -32,6 +32,17 @@ TEST(image, LaplaceFilteringTest) {
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_laplace.pgm", 1);
 }
 
+TEST(image, LaplaceFilteringCpuTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
+
+    ImageGrayscaleCpu simple(image);
+
+    simple.setFilter(laplaceFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_laplace_cpu.pgm", 1);
+}
+
 TEST(image, EmbossingFilteringCpuTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
 
@@ -43,7 +54,7 @@ TEST(image, EmbossingFilteringCpuTest) {
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "sample_embossing_cpu.pgm", 1);
 }
 
-TEST(image, GpuAndCpuIdentity){
+TEST(image, GpuAndCpuIdentity) {
     auto imageGpu = Loader::loadImage(LOADER_ASSETS_PATH + "sample.pgm", 1);
 
     ImageGrayscale simple(imageGpu);
@@ -65,12 +76,9 @@ TEST(image, GpuAndCpuIdentity){
     ASSERT_EQ(imageGpu.width, imageCpu.width);
     ASSERT_EQ(imageGpu.height, imageCpu.height);
 
-    for(int i = 0; i < imageGpu.height; ++i){
-        for(int j = 0; j<imageGpu.width; ++j){
-            int index =i*imageGpu.width+j;
-            if(imageGpu.data[index] != imageCpu.data[index]){
-                std::cout << index << "   :" << imageGpu.data[index] << " ::: " << imageCpu.data[index] << std::endl;
-            }
+    for (int i = 0; i < imageGpu.height; ++i) {
+        for (int j = 0; j < imageGpu.width; ++j) {
+            int index = i * imageGpu.width + j;
             ASSERT_EQ(imageGpu.data[index], imageCpu.data[index]);
         }
     }
