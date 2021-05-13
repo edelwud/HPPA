@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <iomanip>
 
-#include <utils/helpers/helper_border.hpp>
+#include <utils/helpers/helper_border_grayscale.hpp>
 
 TEST(helper_image, AddImageBorderTest) {
     int height = 4;

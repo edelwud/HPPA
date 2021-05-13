@@ -1,6 +1,6 @@
 #pragma once
 
-char embossingFilter[] = {
+static char embossingFilter[] = {
         0,  1,  0,
         1,  0, -1,
         0, -1,  0

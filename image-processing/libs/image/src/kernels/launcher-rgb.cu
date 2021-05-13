@@ -1,17 +1,19 @@
-#include <kernels/launcher-grayscale.cuh>
+#include <kernels/launcher-rgb.cuh>
 
-#include <filters/kernels/filter-operator-grayscale.cuh>
+#include <filters/kernels/filter-operator-rgb.cuh>
 #include <utils/error_check.hpp>
-#include <utils/helpers/helper_border_grayscale.hpp>
+#include <utils/helpers/helper_border_rgb.hpp>
 
-float launchGrayscale(char *filter, Loader::Image &image) {
+float launchRGB(char *filter, Loader::Image &image) {
 
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
 
-    image.data = addImageBorderGrayscale(image.data, image.height, image.width);
-    image.width += 2;
+    image.width *= 3;
+
+    image.data = addImageBorderRGB(image.data, image.height, image.width);
+    image.width += 6;
     image.height += 2;
 
     unsigned char *devSource;
@@ -32,7 +34,7 @@ float launchGrayscale(char *filter, Loader::Image &image) {
     dim3 grid((image.width + block.x / 2 - 1) / block.x / 4, (image.height + block.y / 2 - 1) / block.y);
 
     cudaEventRecord(start);
-    filterOperatorGrayscale<<<grid, block>>>(devFilter, devSource, devDest, pitch, image.width, image.height);
+    filterOperatorRGB<<<grid, block>>>(devFilter, devSource, devDest, pitch, image.width, image.height);
     cudaEventRecord(stop);
 
     checkCudaErrors(cudaMemcpy2D(image.data, image.width * sizeof(unsigned char), devDest, pitch,
@@ -42,9 +44,11 @@ float launchGrayscale(char *filter, Loader::Image &image) {
     float milliseconds = 0;
     cudaEventElapsedTime(&milliseconds, start, stop);
 
-    image.data = removeImageBorderGrayscale(image.data, image.height, image.width);
-    image.width -= 2;
+    image.data = removeImageBorderRGB(image.data, image.height, image.width);
+    image.width -= 6;
     image.height -= 2;
+
+    image.width /= 3;
 
     checkCudaErrors(cudaFree(devSource));
     checkCudaErrors(cudaFree(devDest));

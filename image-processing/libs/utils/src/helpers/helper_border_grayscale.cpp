@@ -1,7 +1,8 @@
-#pragma once
-#include <string.h>
+#include <helpers/helper_border_grayscale.hpp>
 
-unsigned char  *addImageBorder(unsigned char *sourceImage, size_t height, size_t width) {
+#include <stdexcept>
+
+unsigned char  *addImageBorderGrayscale(unsigned char *sourceImage, size_t height, size_t width) {
     if (height < 1 || width < 1) {
         throw std::runtime_error("invalid array sizes");
     }
@@ -18,7 +19,7 @@ unsigned char  *addImageBorder(unsigned char *sourceImage, size_t height, size_t
     return imageWithBorder;
 }
 
-unsigned char  *removeImageBorder(unsigned char  *imageWithBorder, size_t borderedHeight, size_t borderedWidth) {
+unsigned char  *removeImageBorderGrayscale(unsigned char  *imageWithBorder, size_t borderedHeight, size_t borderedWidth) {
     if (borderedHeight < 3 || borderedWidth < 3) {
         throw std::runtime_error("invalid array sizes");
     }

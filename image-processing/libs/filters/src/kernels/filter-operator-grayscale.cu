@@ -1,8 +1,6 @@
-#include <kernels/filter-operator.cuh>
+#include <kernels/filter-operator-grayscale.cuh>
 
-#include <iostream>
-
-__global__ void filterOperator(const char *filter, unsigned char *devSource, unsigned char *devDest, size_t pitch, int width, int height) {
+__global__ void filterOperatorGrayscale(const char *filter, unsigned char *devSource, unsigned char *devDest, size_t pitch, int width, int height) {
     auto offsetX = (blockDim.x * blockIdx.x + threadIdx.x) * 4 + 1;
     auto offsetY = (blockDim.y * blockIdx.y + threadIdx.y) + 1;
 
