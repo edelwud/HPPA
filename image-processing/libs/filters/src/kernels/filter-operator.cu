@@ -25,6 +25,8 @@ __global__ void filterOperator(const char *filter, unsigned char *devSource, uns
         if (result < 0)
             result = 0;
 
+        result += 100;
+
         memcpy(devDest + offsetY * pitch + offsetX + i, &result, 1);
     }
 }

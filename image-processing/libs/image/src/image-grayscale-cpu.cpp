@@ -27,6 +27,8 @@ void ImageGrayscaleCpu::applyFilter() {
             if (result > 255)
                 result = 255;
 
+            result += 100;
+
             newData[i * image.width + n] = (char) result;
         }
     }
