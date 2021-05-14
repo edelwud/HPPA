@@ -76,8 +76,8 @@ TEST(image_grayscale, GpuAndCpuIdentity) {
     ASSERT_EQ(imageGpu.width, imageCpu.width);
     ASSERT_EQ(imageGpu.height, imageCpu.height);
 
-    for (int i = 0; i < imageGpu.height; ++i) {
-        for (int j = 0; j < imageGpu.width; ++j) {
+    for (int i = 1; i < imageGpu.height-1; ++i) {
+        for (int j = 1; j < imageGpu.width-1; ++j) {
             int index = i * imageGpu.width + j;
             ASSERT_EQ(imageGpu.data[index], imageCpu.data[index]);
         }

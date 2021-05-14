@@ -1,6 +1,7 @@
 #include <image-rgb-cpu.hpp>
 
 #include <stdexcept>
+#include <utils/helpers/helper_border_rgb.hpp>
 
 ImageRGBCpu::ImageRGBCpu(Loader::Image image) : Image(image) {}
 
@@ -33,5 +34,9 @@ void ImageRGBCpu::applyFilter() {
         }
     }
 
-    image.data = newData;
+    image.data = removeImageBorderRGB(newData, image.height, image.width);
+
+    image.width /= 3;
+    image.height -= 2;
+    image.width -= 2;
 }

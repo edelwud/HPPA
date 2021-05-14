@@ -4,7 +4,10 @@
 #include <gtest/gtest.h>
 
 #include <filters/embossing-filter.cuh>
+#include <filters/kekw-filter.cuh>
 #include <filters/laplace-filter.cuh>
+#include <filters/prewitt-filter.cuh>
+
 #include <image/image-rgb-cpu.hpp>
 #include <image/image-rgb.hpp>
 
@@ -19,7 +22,6 @@ TEST(image_rgb, EmbossingFilteringTest) {
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "rgb/sample_embossing.ppm", 3);
 }
 
-
 TEST(image_rgb, LaplaceFilteringTest) {
     auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
 
@@ -29,6 +31,28 @@ TEST(image_rgb, LaplaceFilteringTest) {
     simple.applyFilter();
 
     Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "rgb/sample_laplace.ppm", 3);
+}
+
+TEST(image_rgb, KekwFilteringTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
+
+    ImageRGB simple(image);
+
+    simple.setFilter(kekwFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "rgb/sample_kekw.ppm", 3);
+}
+
+TEST(image_rgb, PrewittFilteringTest) {
+    auto image = Loader::loadImage(LOADER_ASSETS_PATH + "sample.ppm", 3);
+
+    ImageRGB simple(image);
+
+    simple.setFilter(prewittFilter);
+    simple.applyFilter();
+
+    Loader::saveImage(simple.getImage(), LOADER_ASSETS_PATH + "rgb/sample_prewitt.ppm", 3);
 }
 
 //TEST(image_rgb, LaplaceFilteringCpuTest) {
