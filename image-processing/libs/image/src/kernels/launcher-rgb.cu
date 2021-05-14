@@ -31,7 +31,7 @@ float launchRGB(char *filter, Loader::Image &image) {
                                  image.width * sizeof(unsigned char), image.height, cudaMemcpyHostToDevice));
 
     dim3 block(32, 16);
-    dim3 grid((image.width + block.x / 2 - 1) / block.x / 4, (image.height + block.y / 2 - 1) / block.y);
+    dim3 grid((image.width + block.x / 2 - 1) / block.x / 3, (image.height + block.y / 2 - 1) / block.y);
 
     cudaEventRecord(start);
     filterOperatorRGB<<<grid, block>>>(devFilter, devSource, devDest, pitch, image.width, image.height);
