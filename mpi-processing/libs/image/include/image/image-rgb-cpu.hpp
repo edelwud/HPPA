@@ -7,5 +7,5 @@ public:
     explicit ImageRGBCpu(Loader::Image image);
     unsigned char fixIntensity(int intensity);
 public:
-    void applyFilter() override;
+    double applyFilter() override;
 };

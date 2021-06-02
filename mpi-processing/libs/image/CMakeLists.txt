@@ -7,7 +7,7 @@ file(GLOB_RECURSE SOURCES ${LIBRARY_SOURCE_DIR}/*)
 
 add_library(${LIBRARY_NAME} STATIC ${HEADERS} ${SOURCES})
 
-target_link_libraries(${LIBRARY_NAME} filters loader)
+target_link_libraries(${LIBRARY_NAME} filters loader benchmark)
 
 target_include_directories(
         ${LIBRARY_NAME}

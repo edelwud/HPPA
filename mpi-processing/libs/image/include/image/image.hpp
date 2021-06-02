@@ -12,7 +12,7 @@ public:
     void setFilter(char *filter);
 
 public:
-    virtual void applyFilter() = 0;
+    virtual double applyFilter() = 0;
 
 protected:
     char *filter;

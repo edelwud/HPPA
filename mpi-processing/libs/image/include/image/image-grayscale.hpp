@@ -7,5 +7,5 @@ public:
     explicit ImageGrayscale(Loader::Image image);
 
 public:
-    void applyFilter() override;
+    double applyFilter() override;
 };

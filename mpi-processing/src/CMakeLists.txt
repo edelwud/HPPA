@@ -1,3 +1,6 @@
-add_executable(${PROJECT_NAME} main.cpp)
+include_directories(/usr/lib64/openmpi/include)
+link_directories(/usr/lib64/openmpi/lib64)
 
-target_link_libraries(${PROJECT_NAME} benchmark matrix)
+add_executable(${PROJECT_NAME} executor.hpp main.cpp)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC mpi mpi_cxx image loader)

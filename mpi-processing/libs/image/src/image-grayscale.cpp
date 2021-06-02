@@ -7,10 +7,9 @@
 
 ImageGrayscale::ImageGrayscale(Loader::Image image) : Image(image) {}
 
-void ImageGrayscale::applyFilter() {
+double ImageGrayscale::applyFilter() {
     if (!filter)
         throw std::runtime_error("image: filter is not assign");
 
-    float milliseconds = launchGrayscale(filter, image);
-    std::cout << "CUDA events benchmark: " << milliseconds << std::endl;
+    return launchGrayscale(filter, image);
 }

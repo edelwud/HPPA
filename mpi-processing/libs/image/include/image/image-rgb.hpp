@@ -7,5 +7,5 @@ public:
     explicit ImageRGB(Loader::Image image);
 
 public:
-    void applyFilter() override;
+    double applyFilter() override;
 };
