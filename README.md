@@ -7,5 +7,5 @@
 - [x] Lab 4: Cuda matrix processing
 - [x] Lab 5: Cuda grayscale image processing
 - [x] Lab 6: Cuda RGB image processing
-- [ ] Lab 7: Image processing on cluster
+- [x] Lab 7: Image processing on cluster
 - [ ] Lab 8: Video stream processing
